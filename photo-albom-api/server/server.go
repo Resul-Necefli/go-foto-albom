@@ -1,13 +1,14 @@
 package server
 
 import (
+	"Resul-Necefli/go-foto-albom/handlers"
 	"log"
 	"net/http"
 )
 
 func StartServer() {
 
-	RunHandler()
+	handlers.RunHandler()
 	err := http.ListenAndServe(":5555", nil)
 
 	if err != nil {
