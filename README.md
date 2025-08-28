@@ -30,7 +30,7 @@ Bu layihə, Go proqramlaşdırma dilində sadə bir HTTP server yaratmaq və ş�
 6. DELETE /photos/{id}
    - Mövcud şəkili silir.
 
-## Layihenin Oyrendikleri
+## Layihenin Oyrendiklerim
 - Go dilində HTTP server yaratmaq
 - REST API dizayn prinsipləri
 - JSON encode ve decode islemleri
