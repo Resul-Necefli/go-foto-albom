@@ -2,43 +2,53 @@ package storage
 
 import (
 	"Resul-Necefli/go-foto-albom/model"
-	"errors"
 	"fmt"
 )
 
-func FindPhotoById(ID int) (*model.Photo, error) {
+func GetByIDPhoto(id int) (model.Photo, error) {
 
-	for _, v := range model.Photos {
+	if v, ok := model.Photos[id]; ok {
 
-		if v.ID == ID {
-
-			return &v, nil
-
-		}
+		return v, nil
 
 	}
 
-	return nil, fmt.Errorf("photo not found")
+	return model.Photo{}, fmt.Errorf("ID %d already used", id)
 
 }
 
-func NewPhotoCreate(photo *model.Photo) error {
+func AddPhoto(p model.Photo) error {
 
-	if photo == nil {
+	if _, ok := model.Photos[p.ID]; ok {
 
-		return errors.New("zero value is  referencd")
-
+		return fmt.Errorf("ID %d already used", p.ID)
 	}
 
-	for _, v := range model.Photos {
-
-		if v.ID == photo.ID {
-
-			return errors.New("the enter ID already exists")
-		}
-
-	}
-	model.Photos = append(model.Photos, *photo)
+	model.Photos[p.ID] = p
 	return nil
+
+}
+
+func UpdatePhoto(p model.Photo) {
+
+	model.Photos[p.ID] = p
+}
+
+func DeletePhoto(p model.Photo) {
+
+	delete(model.Photos, p.ID)
+}
+
+func GetPhoto(id int) (*model.Photo, error) {
+
+	photoObj, err := GetByIDPhoto(id)
+
+	if err != nil {
+
+		return &model.Photo{}, fmt.Errorf("GetPhoto to : %v ", err)
+
+	}
+
+	return &photoObj, nil
 
 }
